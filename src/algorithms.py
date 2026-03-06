@@ -1,4 +1,4 @@
-from station import Station
+from src.station import Station
 
 
 def find_cargo_types(station: Station):
@@ -8,19 +8,21 @@ def find_cargo_types(station: Station):
 	"""
 
 	queue = [station]
-	visited = set(station.id)
+	visited = [station.id]
 
 	while len(queue) > 0:
 		current_station = queue.pop(0)
 
 		# Use the cargo types from the current station after cargo has been loaded/unloaded.
-		cargo_types = current_station.cargo_types
-		cargo_types.append(current_station.c_loaded)
-		cargo_types.pop(current_station.c_unloaded)
+		cargo_types = [cargo_type for cargo_type in current_station.cargo_types]
+		if current_station.c_loaded not in cargo_types:
+			cargo_types.append(current_station.c_loaded)
+		while current_station.c_unloaded in cargo_types:
+			cargo_types.remove(current_station.c_unloaded)
 
 		for connected_station in current_station.connections:
 			if connected_station.id not in visited:
-				visited.add(connected_station.id)
+				visited.append(connected_station.id)
 				queue.append(connected_station)
 
 			for cargo_type in cargo_types:
