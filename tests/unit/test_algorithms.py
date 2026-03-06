@@ -95,5 +95,22 @@ class AlgorithmsTests(unittest.TestCase):
         self.assertCountEqual(station3.cargo_types, {20, 30, 40})
         self.assertCountEqual(station4.cargo_types, {20, 30, 40})
 
+    def test_find_cargo_types_disconnected_station(self):
+        """
+        If there is a disconnected station, it shouldn't have any type of cargo.
+        """
+
+        station1 = Station(1, 0, 10)
+        station2 = Station(2, 10, 20)
+        station3 = Station(3, 5, 30)
+
+        station1.add_connection(station2)
+
+        find_cargo_types(station1)
+
+        self.assertCountEqual(station1.cargo_types, {})
+        self.assertCountEqual(station2.cargo_types, {10})
+        self.assertCountEqual(station3.cargo_types, {})
+
 if __name__ == "__main__":
     unittest.main()

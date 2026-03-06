@@ -7,7 +7,6 @@ def find_cargo_types(station: Station):
 	Finds the cargo types that a train can arrive with at each station. Saves the cargo types in the station object.
 	:param station: The starting station.
 	"""
-
 	queue = deque([station])
 
 	while len(queue) > 0:
