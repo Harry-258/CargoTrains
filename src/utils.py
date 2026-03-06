@@ -40,7 +40,7 @@ def print_graph(station: Station):
 
 	while queue:
 		current_station = queue.popleft()
-		print(f"Station {current_station.id}: {'None' if len(current_station.cargo_types) == 0 else current_station.cargo_types}")
+		print(f"Station {current_station.id}: {'None' if len(current_station.cargo_types) == 0 else sorted(current_station.cargo_types)}")
 		for connected_station in current_station.connections:
 			if connected_station not in visited:
 				visited.add(connected_station)

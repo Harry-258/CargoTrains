@@ -42,8 +42,7 @@ class ReadInputTests(unittest.TestCase):
             "2 2",  # Number of stations and tracks
             "1 0 30",  # First station
             "2 5 40",  # Second station
-            "1 2",  # First track
-            "aaa",  # Incorrect input, start the process again
+            "1 -2",  # First track (with incorrect ID, start again)
             "2 2",  # Number of stations and tracks
             "1 100 35",  # First station
             "2 25 49",  # Second station
@@ -117,9 +116,9 @@ class PrintGraphTests(unittest.TestCase):
 
         self.assertEqual(mock_print.call_count, 4)
         mock_print.assert_any_call("Station 1: None")
-        mock_print.assert_any_call("Station 2: {40, 10, 50, 30}")
-        mock_print.assert_any_call("Station 3: {40, 50, 30}")
-        mock_print.assert_any_call("Station 4: {40, 50, 30}")
+        mock_print.assert_any_call("Station 2: [10, 30, 40, 50]")
+        mock_print.assert_any_call("Station 3: [30, 40, 50]")
+        mock_print.assert_any_call("Station 4: [30, 40, 50]")
 
 if __name__ == "__main__":
     unittest.main()
