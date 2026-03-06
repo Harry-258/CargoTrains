@@ -11,7 +11,7 @@ class AlgorithmsTests(unittest.TestCase):
         station = Station(0, 1, 2)
         find_cargo_types(station)
 
-        self.assertCountEqual(station.cargo_types, [])
+        self.assertCountEqual(station.cargo_types, {})
 
     def test_find_cargo_types_one_station_cycle(self):
         """
@@ -22,7 +22,7 @@ class AlgorithmsTests(unittest.TestCase):
         station.add_connection(station)
         find_cargo_types(station)
 
-        self.assertCountEqual(station.cargo_types, [1])
+        self.assertCountEqual(station.cargo_types, {1})
 
     def test_find_cargo_types_two_stations(self):
         """
@@ -35,8 +35,8 @@ class AlgorithmsTests(unittest.TestCase):
 
         find_cargo_types(station1)
 
-        self.assertCountEqual(station2.cargo_types, [2])
-        self.assertCountEqual(station1.cargo_types, [])
+        self.assertCountEqual(station2.cargo_types, {2})
+        self.assertCountEqual(station1.cargo_types, {})
 
     def test_find_cargo_types_with_unloading(self):
         """
@@ -50,9 +50,9 @@ class AlgorithmsTests(unittest.TestCase):
 
         find_cargo_types(station1)
 
-        self.assertCountEqual(station1.cargo_types, [])
-        self.assertCountEqual(station2.cargo_types, [2])
-        self.assertCountEqual(station3.cargo_types, [3])
+        self.assertCountEqual(station1.cargo_types, {})
+        self.assertCountEqual(station2.cargo_types, {2})
+        self.assertCountEqual(station3.cargo_types, {3})
 
     def test_find_cargo_types_with_stations_with_same_cargo_type(self):
         """
@@ -68,10 +68,10 @@ class AlgorithmsTests(unittest.TestCase):
 
         find_cargo_types(station1)
 
-        self.assertCountEqual(station1.cargo_types, [])
-        self.assertCountEqual(station2.cargo_types, [2])
-        self.assertCountEqual(station3.cargo_types, [2])
-        self.assertCountEqual(station4.cargo_types, [4])
+        self.assertCountEqual(station1.cargo_types, {})
+        self.assertCountEqual(station2.cargo_types, {2})
+        self.assertCountEqual(station3.cargo_types, {2})
+        self.assertCountEqual(station4.cargo_types, {4})
 
     def test_find_cargo_types_cycle(self):
         """
@@ -90,10 +90,10 @@ class AlgorithmsTests(unittest.TestCase):
 
         find_cargo_types(station1)
 
-        self.assertCountEqual(station1.cargo_types, [])
-        self.assertCountEqual(station2.cargo_types, [10, 20, 30, 40])
-        self.assertCountEqual(station3.cargo_types, [20, 30, 40])
-        self.assertCountEqual(station4.cargo_types, [20, 30, 40])
+        self.assertCountEqual(station1.cargo_types, {})
+        self.assertCountEqual(station2.cargo_types, {10, 20, 30, 40})
+        self.assertCountEqual(station3.cargo_types, {20, 30, 40})
+        self.assertCountEqual(station4.cargo_types, {20, 30, 40})
 
 if __name__ == "__main__":
     unittest.main()

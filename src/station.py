@@ -3,8 +3,8 @@ class Station:
 		self.id = station_id
 		self.c_unloaded = c_unloaded
 		self.c_loaded = c_loaded
-		self.connections = []
-		self.cargo_types = []
+		self.connections = set()
+		self.cargo_types = set()
 
 	def add_connection(self, station):
-		self.connections.append(station)
+		self.connections.add(station)
