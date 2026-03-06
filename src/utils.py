@@ -15,6 +15,8 @@ def read_input():
 			stations = {}
 			for index in range(station_number):
 				station_id, c_unloaded, c_loaded = map(int, input(f"Enter the station ID, the cargo it unloads, and the cargo type it loads for station {index + 1}/{station_number}: ").split())
+				if station_id in stations:
+					raise ValueError("Invalid input. Station IDs must be unique.")
 				stations[station_id] = Station(station_id, c_unloaded, c_loaded)
 
 			for _ in range(track_number):
@@ -25,7 +27,7 @@ def read_input():
 
 			return stations[starting_station]
 		except ValueError:
-			print("Invalid input. Please ensure you type the correct number of integers separated by spaces.\n")
+			print(f"Invalid input. Please ensure you type the correct number of integers separated by spaces and that your station IDs are unique.\n")
 		except KeyError:
 			print("Invalid input. Please try again, only building tracks between station IDs that exist.\n")
 

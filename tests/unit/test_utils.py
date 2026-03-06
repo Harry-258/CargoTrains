@@ -70,6 +70,41 @@ class ReadInputTests(unittest.TestCase):
 
     @patch("builtins.input")
     @patch("builtins.print")
+    def test_read_input_marks_same_id_as_invalid(self, mock_print, mock_input):
+        """
+        The function should not allow the same ID for different stations.
+        """
+        inputs = [
+            "2 2",  # Number of stations and tracks
+            "1 0 30",  # First station
+            "1 5 40",  # Second station (Same ID, incorrect)
+            "2 2",  # Number of stations and tracks
+            "1 99 6",  # First station
+            "2 25 7",  # Second station
+            "1 2",  # First track
+            "2 1",  # Second track
+            "2",  # Starting station
+        ]
+        mock_input.side_effect = inputs
+
+        station = read_input()
+
+        self.assertEqual(station.id, 2)
+        self.assertEqual(station.c_unloaded, 25)
+        self.assertEqual(station.c_loaded, 7)
+        self.assertEqual(len(station.connections), 1)
+
+        station2 = list(station.connections)[0]
+        self.assertEqual(station2.id, 1)
+        self.assertEqual(station2.c_unloaded, 99)
+        self.assertEqual(station2.c_loaded, 6)
+        self.assertEqual(len(station2.connections), 1)
+
+        self.assertEqual(mock_input.call_count, len(inputs))
+        self.assertEqual(mock_print.call_count, 1)
+
+    @patch("builtins.input")
+    @patch("builtins.print")
     def test_read_input_correctly_reads_input(self, mock_print, mock_input):
         """
         The function should correctly read the input from the user and return a Station object.
